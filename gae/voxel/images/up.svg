@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg 
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	version="1.0"
+	viewBox="-2 -2 14 14"
+	preserveAspectRatio="none">
+	
+	<g>
+		<path stroke="#868686" stroke-width="2" d="M0,10 L5,0 L10,10 L5,0"/>
+	</g>
+</svg>
