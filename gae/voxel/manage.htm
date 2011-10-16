@@ -1,0 +1,14 @@
+﻿<html>
+	<head>
+		<title>Manage</title>
+	</head>
+	<body>
+		{% for drawing in drawings %}
+			<div>
+				<a href='inspect?id={{drawing.drawing_id}}'>{{drawing.drawing_id}}: {{drawing.drawing_name}}</a>
+			</div>
+		{% endfor %}
+		<br/>
+		<a href='upload'>Upload</a> additional drawings
+	</body>
+</html>

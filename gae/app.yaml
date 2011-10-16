@@ -1,0 +1,17 @@
+application: binaryfabrications
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /(.*\.svg)
+  static_files: \1
+  mime_type: image/svg+xml
+  upload: (.*\.svg)
+
+- url: /(.*\.(gif|png|jpg|js|css|xml|html))
+  static_files: \1
+  upload: (.*\.(gif|png|jpg|js|css|xml|html))
+
+- url: /.*
+  script: main.py
