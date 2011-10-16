@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=320;height=420;user-scalable=no;initial-scale=1.0;"/>
+	<meta content="IE=9" http-equiv="X-UA-Compatible" />
+    <title>Voxel</title>
+	<link href="voxel/css/Voxel.css" rel="stylesheet" type="text/css"/>
+	<link href="voxel/css/SaveDialog.css" rel="stylesheet" type="text/css"/>
+	<link href="voxel/css/Slider.css" rel="stylesheet" type="text/css"/>
+
+	<!--[if !IE]><!-->
+	<link href="voxel/css/ColorPicker.css" rel="stylesheet" type="text/css"/>
+	 <!--<![endif]-->
+
+	<script id='drawingTemplate' type='text/html'>
+        <div class='drawing'>
+            <!--<img src='${drawing_image}'/><br/>-->
+			<img src='Voxel/thumbnail?id=${drawing_id}'/><br/>
+			<div class='captionArea'>
+				<div class='caption'>
+					<span class='name'>${drawing_name}</span><br/>
+					<div class='author'>
+						<span class='smallText'>by</span> <span class='author'>${drawing_author}</span>
+					</div>
+				</div>
+			</div>
+        </div>
+    </script>
+	<script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-23226157-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function () {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+</head>
+
+<!--<object data="images/rotate.svg" width="600" height="400" type="image/svg+xml"></object>-->
+<body>
+	<div id='main'>
+		<div id='editor'>
+			<div id='editorRoot'>
+				<div id='layerSlider'>
+					<div class='slider_thumb'>
+						<div id='layerUp' class='svg' src='voxel/images/up.svg' ></div>
+						<div style='position:relative'>
+							<div class='svg' src='voxel/images/layerGrid.svg' style='width:50px; height: 30px;'></div>
+						</div>
+						<div id='layerDown' class='svg' src='voxel/images/down.svg'></div>
+					</div>
+				</div>
+				<div id='container3D'>
+					<!--<div class='rotator'>
+							
+					</div>-->
+				</div>
+			</div>
+
+			<div id='sidebar'>
+				<div id='voxelMiniView'></div>
+				<div class='editorFilletOuter'>
+					<div class='editorFilletInner'>
+						<div class='swatchPreview'></div>
+					</div>
+				</div>
+				<div id='kuler'>
+					<div id='recentColors'></div>
+				</div>
+				<img src='voxel/images/ku_18pxBugOnly_bw.png' class='kulerBug' alt='kuler' title='Swatches from Adobe Kuler'/>
+			</div>
+
+				
+		</div>
+		<div id='drawings' class='drawings drawingsCollapsed'>
+		</div>
+	</div>
+	<div id='saveBlocker' class='hidden'></div>
+	<div id='saveDialogContainer' class='hidden'>
+		<div id='saveDialog'>
+			<!-- <img src='thumbnail.php?drawing_id=4'/> -->
+			<p>
+			<label>Title: </label><input id='name' type='text' class='textInput'/>
+			</p>
+			<p>
+			<label>Editor: </label><input id='author' type='text' class='textInput'/>
+			</p>
+			<div id='overwriteDiv' class='hidden'>
+				<p>
+					<label>Overwrite: </label><input id='overwrite' type='checkbox' value='overwrite' class='checkbox'/>
+				</p>
+			</div>
+			
+			<input type="button" id='cancel' value='cancel' class='button' />  <input type="button" id='save' value='save' class='button' /> 
+		</div>
+	</div>
+
+	<div id='commands'>
+		<input type="button" value='save' id='saveButton' class='button'/>
+		<input type="button" value='new' id='newButton' class='button'/>
+		<input type="button" value='browse' id='browseButton' class='button'/>
+		<!-- <input type="button" value='speed' id='testSpeed' class='button'/> -->
+	</div>
+
+	<script src="voxel/js/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+	<script src="voxel/js/Matrix3D.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelGeometry.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelEditor.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelLayer.js" type="text/javascript"></script>
+	<script src="voxel/js/Voxel.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelCache.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelRenderer.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelPlane.js" type="text/javascript"></script>
+	<script src="voxel/js/Transform.js" type="text/javascript"></script>
+	<script src="voxel/js/HlsColors.js" type="text/javascript"></script>
+	<script src="voxel/js/rgbcolor.js" type="text/javascript"></script>
+	<script src="voxel/js/ColorPicker.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelMiniView.js" type="text/javascript"></script>
+	<script src="voxel/js/VoxelData.js" type="text/javascript"></script>
+	<script src="voxel/js/LayerGrid.js" type="text/javascript"></script>
+	<script src="voxel/js/DrawingBrowser.js" type="text/javascript"></script>
+	<script src="voxel/js/SaveDialog.js" type="text/javascript"></script>
+	<script src="voxel/js/Slider.js" type="text/javascript"></script>
+	<script src="voxel/js/ApplySVG.js" type="text/javascript"></script>
+	<script src="voxel/js/jquery/jquery.tmpl.js" type="text/javascript"></script>
+	<script src="voxel/js/jquery/jQuery_mousewheel_plugin.js" type="text/javascript"></script>
+</body>
+</html>
