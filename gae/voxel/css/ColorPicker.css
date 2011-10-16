@@ -1,0 +1,136 @@
+﻿.colorPicker 
+{
+	background: #ACD071;
+	
+	display: -webkit-box; 
+    display: -moz-box;
+    display: -ms-box;
+    -webkit-box-align: stretch; 
+    -moz-box-align: stretch; 
+    -ms-box-align: stretch; 
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+    
+    padding: 2px 0px 0px 2px;
+}
+
+
+.swatchPreview
+{
+	height: 40px;
+	margin: 4px 0px 4px 8px;
+	
+	background-color: #161616;
+	border-radius:11px 0px 15px 0px;
+	-moz-border-radius:11px 0px 15px 0px;
+	
+	-moz-transition-property: background-color;
+	-webkit-transition-property: background-color;
+	-mox-transition-duration: .3s;
+	-webkit-transition-duration: .3s;
+	-moz-transition-timing-function: ease-out;
+	-webkit-transition-timing-function: ease-out;
+}
+
+.kulerBug 
+{
+	position: absolute;
+	right: 2px;
+	bottom: 4px;
+}
+
+.theme 
+{
+	margin: 5px;
+	margin-left: 50px;
+	height: 28px;
+	margin-right: 50px;
+	display: -webkit-box; 
+    display: -moz-box;
+    display: -ms-box;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+    -webkit-box-align: stretch; 
+    -moz-box-align: stretch; 
+    -ms-box-align: stretch;
+    -webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	-ms-box-flex: 0;
+    
+    -moz-transition-property: height;
+	-webkit-transition-property: height;
+	-mox-transition-duration: .3s;
+	-webkit-transition-duration: .3s;
+	-moz-transition-timing-function: ease-out;
+	-webkit-transition-timing-function: ease-out;
+}
+
+#recentColors
+{
+	margin-top: 5px;
+	
+	text-align: left;
+}
+
+#recentColors div
+{	
+	border-width: 4px 0px 4px 0px;
+	border-style: solid;
+	border-color: #EEE;
+	display: inline-block;
+	
+	-moz-transition-property: width, border-color;
+	-webkit-transition-property: width, border-color;
+	-mox-transition-duration: .3s;
+	-webkit-transition-duration: .3s;
+	-moz-transition-timing-function: ease-out;
+	-webkit-transition-timing-function: ease-out;
+	width: 20px;
+	height: 20px;
+}
+
+#recentColors .selected 
+{
+	border-width: 4px 0px 4px 0px;
+	border-style: solid;
+	border-color: white;
+}
+
+.swatch 
+{
+	width: 20px;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-box-flex: 1;
+	
+}
+
+.theme div
+{	
+	border-width: 4px 0px 4px 0px;
+	border-style: solid;
+	border-color: #EEE;
+	
+	-moz-transition-property: width, border-color;
+	-webkit-transition-property: width, border-color;
+	-mox-transition-duration: .3s;
+	-webkit-transition-duration: .3s;
+	-moz-transition-timing-function: ease-out;
+	-webkit-transition-timing-function: ease-out;
+	
+}
+
+.theme .selected 
+{
+	border-width: 4px 0px 4px 0px;
+	border-style: solid;
+	border-color: white;
+	width: 40px;
+}
+
+.themeSelected div 
+{
+	width: 15px;
+}
