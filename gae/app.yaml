@@ -9,9 +9,9 @@ handlers:
   mime_type: image/svg+xml
   upload: (.*\.svg)
 
-- url: /(.*\.(gif|png|jpg|js|css|xml|html))
+- url: /(.*\.(gif|png|jpg|js|css|xml|html|crx))
   static_files: \1
-  upload: (.*\.(gif|png|jpg|js|css|xml|html))
+  upload: (.*\.(gif|png|jpg|js|css|xml|html|crx))
 
 - url: /.*
   script: main.py

@@ -4,6 +4,7 @@ import datetime
 import time
 import simplejson as json
 import base64
+import rooler.index
 import town.index
 import war.index
 import voxel.index
@@ -38,6 +39,7 @@ def main():
   pages = [('/', Home)]
   pages = [('/user', ShowUser)]
   pages.extend(town.index.pages)
+  pages.extend(rooler.index.pages)
   pages.extend(war.index.pages)
   pages.extend(voxel.index.pages)
   application = webapp.WSGIApplication(pages, debug=True)

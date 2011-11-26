@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rooler</title>
+    <style>
+      html body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font: .8em Arial, Helvetica
+      }
+      .navigation {
+        border-left: 1px solid #D2D2D2;
+        border-bottom: 1px solid #D2D2D2;
+        background: #F1F1F1;
+        font-size: 1.1em;
+        text-shadow: #FFF 0 1px;
+      }
+      .item {
+        display: inline-block;
+        border-right: 1px solid #D2D2D2;
+        height: 28px;
+        width: 100px;
+        padding-top: 12px;
+        text-align: center;
+        position: relative;
+      }
+      a {
+        text-decoration: none;
+        color: #666;
+      }
+      a:visited {
+        color: #888;
+      }
+      #frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .container {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      .host {
+        position: relative;
+        height: 100%;
+      }
+      h1 {
+        color: #888;
+        font-size: 300%;
+        letter-spacing: -3px;
+        font-weight: bold;
+        margin-bottom: -38px;
+        position: fixed;
+        top: -25px;
+        right: 6px;
+      }
+      sub {
+        white-space: nowrap;
+        position: absolute;
+        font-size: .7em;
+        left: 36px;
+        top: 27px;
+      }
+    </style>
+
+    <script type='text/javascript'>
+    window.addEventListener('hashchange', function() {
+      var frame = document.getElementById('frame');
+      frame.contentWindow.location.hash = window.location.hash;
+      var hash = window.location.hash;
+      if (hash) {
+        var name = hash.slice(1);
+        _gaq.push(['_trackPageview', '/rooler/' + name]);
+      }
+    }, false);
+
+    window.addEventListener('load', function() {
+      var frame = document.getElementById('frame');
+      frame.contentWindow.location.hash = window.location.hash;
+    }, false);
+    </script>
+  <body>
+    <div class='navigation'>
+      <a href='#distance'><div class='item'>Distance</div></a>
+      <a href='#bounds'><div class='item'>Bounds</div></a>
+      <a href='#magnify'><div class='item'>Magnify</div></a>
+      <a href='/rooler/rooler.crx'><div class='item'>Install<sub>(Chrome only)</sub></div></a>
+    </div>
+    <h1>Rooler.</h1>
+
+    <div class='container'>
+      <div class='host'>
+        <iframe id='frame' src='/rooler/demo.html'></iframe>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23226157-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
