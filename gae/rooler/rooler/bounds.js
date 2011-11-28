@@ -68,10 +68,9 @@ rooler.BoundsTool = function() {
     x: 0,
     y: 0
   };
-  
-  this.hideCamera();
 
-  this.startTest();
+  this.hideCamera();
+  //this.startTest();
 };
 
 rooler.BoundsTool.prototype.startTest = function() {

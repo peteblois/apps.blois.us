@@ -116,8 +116,14 @@ rooler.DistanceTool.prototype.update = function() {
   this.horizontal.style.top = (this.cursorPosition.y - coordinates.top - myOffset.top - 5) + 'px';
 
   this.dimensions.textContent = (coordinates.width + ' x ' + coordinates.height);
-  this.dimensions.style.left = (this.cursorPosition.x - myOffset.left + 10) + 'px';
   this.dimensions.style.top = (this.cursorPosition.y - myOffset.top - 20) + 'px';
+
+  if (this.cursorPosition.x > window.innerWidth - 100) {
+    var width = this.dimensions.clientWidth;
+    this.dimensions.style.left = (this.cursorPosition.x - myOffset.left - (width + 10)) + 'px';
+  } else {
+    this.dimensions.style.left = (this.cursorPosition.x - myOffset.left + 10) + 'px';
+  }
 }
 
 rooler.DistanceTool.prototype.handleWindowScroll = function(e) {

@@ -54,7 +54,11 @@ rooler.Html2Canvas.prototype.draw = function(element) {
 
     var letterSpacing = this.parseLength(style.letterSpacing || style['letter-spacing']);
     if (letterSpacing != 0) {
-      this.renderText(element.textContent, 0, 0, letterSpacing);
+      var offsetY = 0;
+      if (navigator.userAgent.indexOf('Firefox')!=-1) {
+        offsetY = -letterSpacing
+      }
+      this.renderText(element.textContent, 0, offsetY, letterSpacing);
     } else {
       var paddingTop = this.parseLength(style.paddingTop || style['padding-top']);
       var paddingLeft = this.parseLength(style.paddingLeft || style['padding-left']);
@@ -90,7 +94,7 @@ rooler.Html2Canvas.prototype.renderBackground = function(element, style, width, 
           backgroundImage.lastIndexOf(')'));
 
       var stops = this.parseStops(stopsText);
-      var gradient = this.context.createLinearGradient(0, 0, 0, 1);
+      var gradient = this.context.createLinearGradient(0, 0, 0, height);
       for (var i = 0; i < stops.length; ++i) {
         gradient.addColorStop(i / (stops.length - 1), stops[i]);
       }

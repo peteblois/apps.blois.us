@@ -20,9 +20,18 @@ rooler.Magnifier = function() {
   this.root.appendChild(rooler.createElement('div', 'roolerMagnifierCrosshairV'));
   this.root.appendChild(rooler.createElement('div', 'roolerMagnifierCrosshairH'));
 
-  this.closeButton = rooler.createElement('div', 'roolerMagnifierCloseButton');
+  this.closeButton = rooler.createElement('a', 'roolerMagnifierCloseButton');
+  this.closeButton.title = 'Close';
+  var icon = rooler.createElement('div', 'roolerMagnifierCloseIcon');
+  this.closeButton.appendChild(icon);
+  if (window.chrome && window.chrome.extension) {
+    icon.style.background = 'url(' + window.chrome.extension.getURL('close.png') + ')';
+  }
   this.closeButton.addEventListener('click', this.handleCloseClick, false);
   this.root.appendChild(this.closeButton);
+
+  this.colorPreview = rooler.createElement('div', 'roolerMagnifierColorPreview');
+  this.root.appendChild(this.colorPreview);
 
   this.pixelColorText = rooler.createElement('div', 'roolerMagnifierColorText');
   this.root.appendChild(this.pixelColorText);
@@ -32,6 +41,8 @@ rooler.Magnifier = function() {
   this.root.appendChild(this.positionText);
   this.positionText.textContent = '0,0';
 
+  this.handleRefresh = this.handleRefresh.bind(this);
+  this.refreshTimer = window.setInterval(this.handleRefresh, 500);
 
   document.body.appendChild(this.root);
   document.addEventListener('mousemove', this.handleMouseMove, false);
@@ -71,7 +82,9 @@ rooler.Magnifier.prototype.update = function() {
   this.positionText.textContent = (this.offset.x - this.base.x) + ', ' + (this.offset.y - this.base.y);
 
   var pixel = this.context.getImageData(this.width / 2 - scale, this.height / 2 - scale, 1, 1);
-  this.pixelColorText.textContent = '#' + pixel.data[0].toString(16).toUpperCase() + pixel.data[1].toString(16).toUpperCase() + pixel.data[2].toString(16).toUpperCase();
+  var color = '#' + pixel.data[0].toString(16).toUpperCase() + pixel.data[1].toString(16).toUpperCase() + pixel.data[2].toString(16).toUpperCase();
+  this.pixelColorText.textContent = color;
+  this.colorPreview.style.background = color;
 
   this.context.restore();
 };
@@ -169,6 +182,12 @@ rooler.Magnifier.prototype.handleWindowScroll = function() {
   }
 }
 
+rooler.Magnifier.prototype.handleRefresh = function() {
+  if (window.Rooler.requestUpdateScreenshot) {
+    window.Rooler.requestUpdateScreenshot();
+  }
+}
+
 rooler.Magnifier.prototype.hide = function() {
   this.root.className += ' roolerHidden';
 }
@@ -183,4 +202,6 @@ rooler.Magnifier.prototype.close = function() {
   window.removeEventListener('scroll', this.handleWindowScroll, false);
   document.body.removeEventListener('keydown', this.handleKeyDown, false);
   document.body.removeChild(this.root);
+
+  window.clearInterval(this.refreshTimer);
 }
