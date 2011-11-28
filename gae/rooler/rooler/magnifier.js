@@ -41,8 +41,8 @@ rooler.Magnifier = function() {
   this.root.appendChild(this.positionText);
   this.positionText.textContent = '0,0';
 
-  this.handleRefresh = this.handleRefresh.bind(this);
-  this.refreshTimer = window.setInterval(this.handleRefresh, 500);
+  // this.handleRefresh = this.handleRefresh.bind(this);
+  // this.refreshTimer = window.setInterval(this.handleRefresh, 500);
 
   document.body.appendChild(this.root);
   document.addEventListener('mousemove', this.handleMouseMove, false);
