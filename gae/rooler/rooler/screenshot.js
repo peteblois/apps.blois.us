@@ -1,14 +1,16 @@
 var rooler = rooler || {};
 
 rooler.ScreenShot = function(canvas) {
-    this.canvas = canvas;
-    var context = this.canvas.getContext('2d');
-    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    this.imageData = imageData;
-    this.top = 0;
-    this.left = 0;
-    this.right = imageData.width;
-    this.bottom = imageData.height;
+  this.canvas = canvas;
+  var context = this.canvas.getContext('2d');
+  var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  this.imageData = imageData;
+  this.top = 0;
+  this.left = 0;
+  this.right = imageData.width;
+  this.bottom = imageData.height;
+  this.data = this.imageData.data;
+  this.width = imageData.width;
 }
 
 rooler.ScreenShot.fromImage = function(img) {
@@ -29,14 +31,11 @@ rooler.ScreenShot.fromCanvas = function(canvas) {
   return new rooler.ScreenShot(canvas);
 }
 
-rooler.ScreenShot.prototype.getScreenPixel = function(x, y) {
-  var index = (y * 4) * this.imageData.width + (x * 4);
-  return {
-    r: this.imageData.data[index],
-    g: this.imageData.data[index + 1],
-    b: this.imageData.data[index + 2],
-    a: this.imageData.data[index + 3]
-  };
+rooler.ScreenShot.prototype.getScreenPixel = function(x, y, pixel) {
+  var index = (y * 4) * this.width + (x * 4);
+  pixel.r = this.data[index];
+  pixel.g = this.data[index + 1];
+  pixel.b = this.data[index + 2];
 }
 
 rooler.ScreenShot.prototype.captureRect = function(rect) {

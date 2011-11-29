@@ -47,6 +47,9 @@ rooler.BoundsTool = function() {
   document.body.addEventListener('mousemove', this.handleMouseMove, false);
   document.body.addEventListener('mousedown', this.handleMouseDown, false);
   document.body.addEventListener('mouseup', this.handleMouseUp, false);
+  document.body.addEventListener('touchmove', this.handleMouseMove, false);
+  document.body.addEventListener('touchstart', this.handleMouseDown, false);
+  document.body.addEventListener('touchend', this.handleMouseUp, false);
   window.addEventListener('scroll', this.handleWindowScroll, false);
   window.addEventListener('mousewheel', this.handleMouseWheel, false);
   window.addEventListener('resize', this.handleResize, false);
@@ -105,6 +108,10 @@ rooler.BoundsTool.prototype.setCanClose = function(canClose) {
 rooler.BoundsTool.prototype.close = function() {
   document.body.removeEventListener('mousemove', this.handleMouseMove, false);
   document.body.removeEventListener('mousedown', this.handleMouseDown, false);
+  document.body.removeEventListener('mouseup', this.handleMouseUp, false);
+  document.body.removeEventListener('touchmove', this.handleMouseMove, false);
+  document.body.removeEventListener('touchstart', this.handleMouseDown, false);
+  document.body.removeEventListener('touchend', this.handleMouseUp, false);
   window.removeEventListener('scroll', this.handleWindowScroll, false);
   window.removeEventListener('mousewheel', this.handleMouseWheel, false);
   window.removeEventListener('resize', this.handleResize, false);
@@ -130,12 +137,12 @@ rooler.BoundsTool.prototype.handleMouseDown = function(e) {
   }
   this.isMouseDown = true;
   this.start = {
-    x: e.clientX,
-    y: e.clientY
+    x: e.pageX - window.pageXOffset,
+    y: e.pageY - window.pageYOffset
   };
   this.end = {
-    x: e.clientX,
-    y: e.clientY
+    x: e.pageX - window.pageXOffset,
+    y: e.pageY - window.pageYOffset
   };
   this.updateRect();
   this.hideCamera();
@@ -149,13 +156,15 @@ rooler.BoundsTool.prototype.handleMouseDown = function(e) {
 rooler.BoundsTool.prototype.handleMouseMove = function(e) {
   if (this.isMouseDown) {
     this.end = {
-      x: e.clientX,
-      y: e.clientY
+      x: e.pageX - window.pageXOffset,
+      y: e.pageY - window.pageYOffset
     };
     this.updateRect();
     if (this.canClose) {
       this.hideInstructions();
     }
+    e.preventDefault();
+    return true;
   }
 };
 
@@ -165,10 +174,12 @@ rooler.BoundsTool.prototype.handleMouseUp = function(e) {
   }
   this.isMouseDown = false;
 
-  this.end = {
-    x: e.clientX,
-    y: e.clientY
-  };
+  if (e.pageX) {
+    this.end = {
+      x: e.pageX - window.pageXOffset,
+      y: e.pageY - window.pageYOffset
+    };
+  }
   this.collapseRect();
 };
 
@@ -181,6 +192,8 @@ rooler.BoundsTool.prototype.collapseRect = function() {
       this.update();
       this.showCamera();
     } else {
+      //alert('no bounds: L' + this.rect.left + ' R: ' + this.rect.right + ' T: ' + this.rect.top + ' B:' + this.rect.bottom);
+      //alert('ex: ' + this.end.x + ' ey: ' + this.end.y + ' sx: ' + this.start.x + ' sy: ' + this.start.y);
       this.end = this.start;
       this.updateRect();
       this.hideDimensions();
@@ -206,12 +219,13 @@ rooler.BoundsTool.prototype.updateRect = function() {
 rooler.BoundsTool.prototype.update = function() {
   this.top.style.height = this.rect.top + 'px';
   this.bottom.style.height = window.innerHeight - this.rect.bottom + 'px';
+  this.bottom.style.width = this.rect.right + 'px';
   this.left.style.width = this.rect.left + 'px';
   this.left.style.top = this.rect.top + 'px';
   this.left.style.bottom = window.innerHeight - this.rect.bottom + 'px';
   this.right.style.width = window.innerWidth - this.rect.right + 'px';
   this.right.style.top = this.rect.top + 'px';
-  this.right.style.bottom = window.innerHeight - this.rect.bottom + 'px';
+  //this.right.style.bottom = window.innerHeight - this.rect.bottom + 'px';
 
   var width = this.rect.right - this.rect.left;
   var height = this.rect.bottom - this.rect.top;

@@ -27,6 +27,8 @@ rooler.DistanceTool = function() {
 
   document.body.addEventListener('mousemove', this.handleMouseMove, false);
   document.body.addEventListener('mousedown', this.handleMouseDown, false);
+  document.body.addEventListener('touchmove', this.handleMouseMove, false);
+  document.body.addEventListener('touchstart', this.handleMouseDown, false);
   window.addEventListener('scroll', this.handleWindowScroll, false);
   window.addEventListener('mousewheel', this.handleMouseWheel, false);
 
@@ -47,6 +49,8 @@ rooler.DistanceTool.prototype.setCanClose = function(canClose) {
 rooler.DistanceTool.prototype.close = function() {
   document.body.removeEventListener('mousemove', this.handleMouseMove, false);
   document.body.removeEventListener('mousedown', this.handleMouseDown, false);
+  document.body.removeEventListener('touchmove', this.handleMouseMove, false);
+  document.body.removeEventListener('touchstart', this.handleMouseDown, false);
   window.removeEventListener('scroll', this.handleWindowScroll, false);
   window.removeEventListener('mousewheel', this.handleMouseWheel, false);
 
@@ -73,8 +77,10 @@ rooler.DistanceTool.prototype.handleMouseMove = function(e) {
     x: e.pageX,
     y: e.pageY
   };
+  e.preventDefault();
 
   this.update();
+  return true;
 }
 
 rooler.DistanceTool.prototype.update = function() {

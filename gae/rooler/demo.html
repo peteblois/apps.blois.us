@@ -47,12 +47,12 @@
       }
 
       #curve1 {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
       }
       #curve2 {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         right: 0;
       }
@@ -62,9 +62,9 @@
         display: inline-block;
         padding: 3px 10px;
         margin-left: 53px;
-        top: 186px;
+        top: 84px;
         z-index: 5000;
-        position: fixed;
+        position: absolute;
         visibility: hidden;
         background-image: -webkit-linear-gradient(top,#888,#666);
         color: white;
@@ -172,21 +172,20 @@
         <div style='position: relative; top: -86px;'>
           <h1><span>Rooler</span></h1>
           <h2><span>Rool the world.</span></h2>
-
             <a id='install' href='rooler.crx'>Install<span style='font-size:.5em; display:block'>Chrome Extension</span></a>
-
         </div>
         <div>
       </div>
       <div id='MagnifierInstructions' class='instructions roolerHidden'>
         <h3>Magnifier</h3>
-        <li>Use arrow keys to micro-adjust the position.</li>
-        <li>Use 'space' key to reset the coordinates- useful for complex measurements.</li>
+        <div>&raquo;Use arrow keys to micro-adjust the position.</div>
+        <div>&raquo;Use 'space' key to reset the coordinates- useful</div>
+        <div style='margin-left:8px'>for complex measurements.</div>
       </div>
       <div id='BoundsToolInstructions' class='instructions roolerHidden'>
         <h3>Bounds</h3>
-        <li>Drag a box around the element to be measured.</li>
-        <li>Click the camera icon to save the selected area.</li>
+        <div>&raquo;Drag a box around the element to be measured.</div>
+        <div>&raquo;Click the camera icon to save the selected area.</div>
       </div>
     </div>
   </body>

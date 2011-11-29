@@ -45,7 +45,7 @@ rooler.ScreenCoordinates.prototype.collapseBox = function(rect, screenshot) {
   return null;
 }
 
-rooler.ScreenCoordinates.prototype.findNearestX = function (xStart, yStart, yEnd, xIncrement, screenshot) {
+rooler.ScreenCoordinates.prototype.findNearestX = function findNearestX(xStart, yStart, yEnd, xIncrement, screenshot) {
 
   yStart = Math.max(screenshot.top, yStart);
   yEnd = Math.min(screenshot.bottom, yEnd);
@@ -54,13 +54,15 @@ rooler.ScreenCoordinates.prototype.findNearestX = function (xStart, yStart, yEnd
   var yEdge = yStart;
 
   var imageData = screenshot.imageData;
+  var currentPixel = {r: 0, g: 0, b: 0};
+  var startPixel = {r: 0, g: 0, b: 0};
 
   for (var y = yStart; y < yEnd; ++y) {
-    var startPixel = screenshot.getScreenPixel(xStart, y);
+    screenshot.getScreenPixel(xStart, y, startPixel);
 
     var cont = true;
     for (var x = xStart; x >= screenshot.left && x <= screenshot.right && cont == true; x += xIncrement) {
-      var currentPixel = rooler.getScreenPixel(imageData, x, y);
+      screenshot.getScreenPixel(x, y, currentPixel);
       if (!this.isPixelClose(currentPixel, startPixel)) {
         var edge = x - xIncrement;
         if (xIncrement > 0) {
@@ -73,7 +75,9 @@ rooler.ScreenCoordinates.prototype.findNearestX = function (xStart, yStart, yEnd
         }
         cont = false;
       }
+      var tmp = startPixel;
       startPixel = currentPixel;
+      currentPixel = tmp;
     }
   }
 
@@ -93,13 +97,15 @@ rooler.ScreenCoordinates.prototype.findNearestY = function (xStart, xEnd, yStart
   var yEdge = yIncrement < 0 ? -100000 : 100000;
 
   var imageData = screenshot.imageData;
+  var currentPixel = {r: 0, g: 0, b: 0};
+  var startPixel = {r: 0, g: 0, b: 0};
 
   for (var x = xStart; x < xEnd; ++x) {
-    var startPixel = screenshot.getScreenPixel(x, yStart);
+    screenshot.getScreenPixel(x, yStart, startPixel);
 
     var cont = true;
     for (var y = yStart; y >= screenshot.top && y <= screenshot.bottom && cont == true; y += yIncrement) {
-      var currentPixel = rooler.getScreenPixel(imageData, x, y);
+      rooler.getScreenPixel(imageData, x, y, currentPixel);
       if (!this.isPixelClose(currentPixel, startPixel)) {
         var edge = y - yIncrement;
         if (yIncrement > 0) {
@@ -111,7 +117,9 @@ rooler.ScreenCoordinates.prototype.findNearestY = function (xStart, xEnd, yStart
           yEdge = edge;
         }
       }
+      var tmp = startPixel;
       startPixel = currentPixel;
+      currentPixel = tmp;
     }
   }
 
@@ -126,8 +134,7 @@ rooler.ScreenCoordinates.prototype.findNearestY = function (xStart, xEnd, yStart
 rooler.ScreenCoordinates.prototype.isPixelClose = function (a, b) {
   var totalDifference = Math.abs(a.r - b.r) +
     Math.abs(a.g - b.g) +
-    Math.abs(a.b - b.b) +
-    Math.abs(a.a - b.a);
+    Math.abs(a.b - b.b);
 
   if (totalDifference > rooler.ScreenCoordinates.colorTolerance)
     return false;

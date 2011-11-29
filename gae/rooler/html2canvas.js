@@ -34,9 +34,6 @@ rooler.Html2Canvas.prototype.draw = function(element) {
   var width = element.scrollWidth;
   var height = element.scrollHeight;
 
-  // if (element.id == 'install') {
-  //   element = element;
-  // }
   this.renderBackground(element, style, width, height);
   this.renderBorder(element, style, width, height);
 

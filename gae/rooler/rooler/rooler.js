@@ -13,8 +13,8 @@ if (!Function.prototype.bind) {
     }
 
     var fSlice = Array.prototype.slice,
-        aArgs = fSlice.call(arguments, 1), 
-        fToBind = this, 
+        aArgs = fSlice.call(arguments, 1),
+        fToBind = this,
         fNOP = function () {},
         fBound = function () {
           return fToBind.apply(this instanceof fNOP
@@ -34,14 +34,11 @@ rooler.clamp = function(value, min, max) {
 	return Math.max(Math.min(value, max), min);
 }
 
-rooler.getScreenPixel = function (data, x, y) {
+rooler.getScreenPixel = function (data, x, y, pixel) {
 	var index = (y * 4) * data.width + (x * 4);
-	return {
-		r: data.data[index],
-		g: data.data[index + 1],
-		b: data.data[index + 2],
-		a: data.data[index + 3]
-	};
+  pixel.r = data.data[index];
+  pixel.g = data.data[index + 1];
+  pixel.b = data.data[index + 2];
 }
 
 rooler.createElement = function(type, className) {

@@ -4,6 +4,7 @@ import datetime
 import time
 import simplejson as json
 import base64
+import feedback.index
 import rooler.index
 import town.index
 import war.index
@@ -38,6 +39,7 @@ class ShowUser(webapp.RequestHandler):
 def main():
   pages = [('/', Home)]
   pages = [('/user', ShowUser)]
+  pages.extend(feedback.index.pages)
   pages.extend(town.index.pages)
   pages.extend(rooler.index.pages)
   pages.extend(war.index.pages)
