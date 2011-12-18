@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Manage</title>
+  </head>
+  <body>
+    {% for script in scripts %}
+      <div>
+        <a href='{{script.id}}'>{{script.id}}</a>
+        <a href='delete?id={{script.id}}'>delete</a>
+        <a href='/draw#{{script.id}}'>view</a>
+      </div>
+    {% endfor %}
+    <br/>
+  </body>
+</html>
