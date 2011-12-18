@@ -2,6 +2,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   font: 12px Arial, Helvetica, 'bitstream vera sans', sans-serif;
 }
 
@@ -104,9 +106,9 @@
   padding: 2px 2px 0 2px;
   z-index: 1000;
   white-space: nowrap;
-  -moz-box-shadow: 0px 0px 5px #888;
-  -webkit-box-shadow: 0px 0px 5px #888;
-  box-shadow: 2px 2px 5px #888;
+  -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, .7);
+  -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, .7);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, .7);
 }
 
 .roolerOverlay {
@@ -166,6 +168,7 @@
   position: absolute;
   bottom: 5px;
   left: 40px;
+  font: 12px Arial, Helvetica, 'bitstream vera sans', sans-serif;
 }
 
 .roolerMagnifierPositionText {
@@ -173,6 +176,7 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
+  font: 12px Arial, Helvetica, 'bitstream vera sans', sans-serif;
   /*float: right;*/
 }
 
@@ -280,4 +284,51 @@
 
 .roolerCaptureMatte {
   padding: 5px;
+}
+
+.roolerLoupe {
+  width: 55px;
+  height: 55px;
+  position: fixed;
+  z-index: 6000;
+}
+
+.roolerLoupeInfo {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .7);
+  border-radius: 0 0 0 5px;
+  color: white;
+  font: 12px Arial, Helvetica, 'bitstream vera sans', sans-serif;
+
+  -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, .7);
+  -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, .7);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, .7);
+}
+
+.roolerLoupeInfo>div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.roolerLoupeColorPreview {
+  width: 30px;
+  height: 16px;
+
+  background: red;
+  margin-right: 5px;
+  border-radius: 0 0 0 5px;
+}
+
+.roolerLoupeColorText {
+  width: 65px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.roolerLoupePositionText {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  width: 65px;
 }

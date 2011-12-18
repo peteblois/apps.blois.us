@@ -15,22 +15,43 @@
         background: #F1F1F1;
         font-size: 1.1em;
         text-shadow: #FFF 0 1px;
+        border-bottom: 1px solid #D2D2D2;
+        position: relative;
+
+        -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
+        -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
+        z-index: 1000;
       }
       .item {
         display: inline-block;
-        border-right: 1px solid #D2D2D2;
-        height: 28px;
+        height: 27px;
         width: 100px;
         padding-top: 12px;
         text-align: center;
         position: relative;
       }
+
       a {
         text-decoration: none;
         color: #666;
+        height: 100%;
+        display: inline-block;
+        position: relative;
+        margin-left: -4px;
+        margin-bottom: -1px;
+        border-right: 1px solid #D2D2D2;
       }
+
       a:visited {
         color: #888;
+      }
+      a.selected {
+        background-image: -webkit-linear-gradient(top,#CCC,#A9A9A9);
+        color: #333;
+        border-right: 1px solid #888;
+        border-left: 1px solid #888;
+        margin-left: -5px;
       }
       #frame {
         width: 100%;
@@ -70,26 +91,39 @@
 
     <script type='text/javascript'>
     window.addEventListener('hashchange', function() {
-      var frame = document.getElementById('frame');
-      frame.contentWindow.location.hash = window.location.hash;
-      var hash = window.location.hash;
-      if (hash) {
-        var name = hash.slice(1);
-        _gaq.push(['_trackPageview', '/rooler/' + name]);
-      }
+      select(window.location.hash);
     }, false);
 
     window.addEventListener('load', function() {
-      var frame = document.getElementById('frame');
-      frame.contentWindow.location.hash = window.location.hash;
+      select(window.location.hash);
     }, false);
+
+    function select(hash) {
+      var tool = 'distance';
+      if (hash && hash.length > 1) {
+        tool = hash.slice(1);
+      }
+      var frame = document.getElementById('frame');
+      frame.contentWindow.location.hash = tool;
+
+      _gaq.push(['_trackPageview', '/rooler/' + tool]);
+
+      var nav = document.getElementById('navigation');
+      for (var i = 0; i < nav.children.length; ++i) {
+        rooler.removeClass(nav.children[i], 'selected');
+      }
+      var menu = document.getElementById(tool);
+      if (menu) {
+        rooler.addClass(menu, 'selected');
+      }
+    }
     </script>
   <body>
-    <div class='navigation'>
-      <a href='#distance'><div class='item'>Distance</div></a>
-      <a href='#bounds'><div class='item'>Bounds</div></a>
-      <a href='#magnify'><div class='item'>Magnify</div></a>
-      <a href='/rooler/rooler.crx'><div class='item'>Install<sub>(Chrome only)</sub></div></a>
+    <div class='navigation' id='navigation'>
+      <a href='#distance' id='distance'><div class='item'>Distance</div></a>
+      <a href='#bounds' id='bounds'><div class='item'>Bounds</div></a>
+      <!-- <a href='#magnify'><div class='item'>Magnify</div></a> -->
+      <a href='#loupe' id='loupe'><div class='item'>Magnify</div></a>
     </div>
     <h1>Rooler.</h1>
 
@@ -110,5 +144,6 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
+    <script type="text/javascript" src="/rooler/rooler/base.js"></script>
   </body>
 </html>

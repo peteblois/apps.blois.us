@@ -223,7 +223,7 @@ rooler.BoundsTool.prototype.update = function() {
   this.left.style.width = this.rect.left + 'px';
   this.left.style.top = this.rect.top + 'px';
   this.left.style.bottom = window.innerHeight - this.rect.bottom + 'px';
-  this.right.style.width = window.innerWidth - this.rect.right + 'px';
+  this.right.style.width = document.body.clientWidth - this.rect.right + 'px';
   this.right.style.top = this.rect.top + 'px';
   //this.right.style.bottom = window.innerHeight - this.rect.bottom + 'px';
 

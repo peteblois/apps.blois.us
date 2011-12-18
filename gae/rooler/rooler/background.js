@@ -9,7 +9,7 @@ var rooler = rooler || {};
 /**
  * Handler for all background coordination across all tabs.
  */
-rooler.Background = function() {  
+rooler.Background = function() {
   chrome.extension.onConnect.addListener(this.handleConnect_.bind(this));
   this.tabManagers = [];
   this.pendingCommands = [];
@@ -54,6 +54,19 @@ rooler.Background.prototype.startMagnifierTool = function() {
   });
 }
 
+/**
+ * Start the loupe tool running on the current tab.
+ */
+rooler.Background.prototype.startLoupeTool = function() {
+  var command = {
+    msg: 'startLoupeTool'
+  };
+  var that = this;
+  chrome.tabs.getSelected(null, function(tab) {
+    that.postCommand(command, tab);
+  });
+};
+
 rooler.Background.prototype.postCommand = function(command, tab) {
   var tabManager = this.findTabManager(tab);
   if (tabManager != null) {
@@ -61,9 +74,12 @@ rooler.Background.prototype.postCommand = function(command, tab) {
   }
   else {
     this.pendingCommands[tab.id] = command;
+    chrome.tabs.executeScript(tab.id, { file: 'base.js' } );
+    chrome.tabs.executeScript(tab.id, { file: 'tool.js' } );
     chrome.tabs.executeScript(tab.id, { file: 'distance.js' } );
     chrome.tabs.executeScript(tab.id, { file: 'capture.js' } );
     chrome.tabs.executeScript(tab.id, { file: 'bounds.js' } );
+    chrome.tabs.executeScript(tab.id, { file: 'loupe.js' } );
     chrome.tabs.executeScript(tab.id, { file: 'magnifier.js' } );
     chrome.tabs.executeScript(tab.id, { file: 'screencoordinates.js' } );
     chrome.tabs.executeScript(tab.id, { file: 'screenshot.js' } );
@@ -86,7 +102,7 @@ rooler.Background.prototype.findTabManager = function(tab) {
  */
 rooler.Background.prototype.handleConnect_ = function(port) {
   var command = this.pendingCommands[port.sender.tab.id];
-  
+
   var tabManager = new rooler.TabManager(port, command);
   this.tabManagers.push(tabManager);
 }
@@ -103,7 +119,7 @@ rooler.TabManager = function(port, command) {
   this.port = port;
   this.tab = port.sender.tab;
   this.command = command;
-  
+
   this.port.onMessage.addListener(this.handleMessage_.bind(this));
   this.port.onDisconnect.addListener(this.handleClose_.bind(this));
 }

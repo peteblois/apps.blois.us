@@ -1,8 +1,10 @@
 var rooler = rooler || {};
 
 rooler.Magnifier = function() {
-  this.root = rooler.createElement('div', 'roolerMagnifier');
-  rooler.addClass(this.root, 'roolerRoot');
+  this.root = rooler.createElement('div', 'roolerRoot');
+  rooler.applyRootStyle(this.root);
+  var magnifier = rooler.createElement('div', 'roolerMagnifier').appendTo(this.root);
+  //rooler.addClass(this.root, 'roolerRoot');
 
   this.handleCloseClick = this.handleCloseClick.bind(this);
   this.handleMouseMove = this.handleMouseMove.bind(this);
@@ -16,9 +18,9 @@ rooler.Magnifier = function() {
   this.canvas.style['image-rendering'] = 'optimizespeed';
 
   this.context = this.canvas.getContext('2d');
-  this.root.appendChild(this.canvas);
-  this.root.appendChild(rooler.createElement('div', 'roolerMagnifierCrosshairV'));
-  this.root.appendChild(rooler.createElement('div', 'roolerMagnifierCrosshairH'));
+  magnifier.appendChild(this.canvas);
+  magnifier.appendChild(rooler.createElement('div', 'roolerMagnifierCrosshairV'));
+  magnifier.appendChild(rooler.createElement('div', 'roolerMagnifierCrosshairH'));
 
   this.closeButton = rooler.createElement('a', 'roolerMagnifierCloseButton');
   this.closeButton.title = 'Close';
@@ -28,17 +30,17 @@ rooler.Magnifier = function() {
     icon.style.background = 'url(' + window.chrome.extension.getURL('close.png') + ')';
   }
   this.closeButton.addEventListener('click', this.handleCloseClick, false);
-  this.root.appendChild(this.closeButton);
+  magnifier.appendChild(this.closeButton);
 
   this.colorPreview = rooler.createElement('div', 'roolerMagnifierColorPreview');
-  this.root.appendChild(this.colorPreview);
+  magnifier.appendChild(this.colorPreview);
 
   this.pixelColorText = rooler.createElement('div', 'roolerMagnifierColorText');
-  this.root.appendChild(this.pixelColorText);
+  magnifier.appendChild(this.pixelColorText);
   this.pixelColorText.textContent = '#FFFFFF';
 
   this.positionText = rooler.createElement('div', 'roolerMagnifierPositionText');
-  this.root.appendChild(this.positionText);
+  magnifier.appendChild(this.positionText);
   this.positionText.textContent = '0,0';
 
   // this.handleRefresh = this.handleRefresh.bind(this);
@@ -46,7 +48,7 @@ rooler.Magnifier = function() {
 
   document.body.appendChild(this.root);
   document.addEventListener('mousemove', this.handleMouseMove, false);
-  this.root.addEventListener('mousewheel', this.handleMouseWheel, false);
+  //this.root.addEventListener('mousewheel', this.handleMouseWheel, false);
 
   document.body.addEventListener('keydown', this.handleKeyDown, false);
 
@@ -77,19 +79,31 @@ rooler.Magnifier.prototype.update = function() {
     x: (this.offset.x - window.pageXOffset) - this.canvas.width / 2 / scale,
     y: (this.offset.y - window.pageYOffset) - this.canvas.height / 2 / scale
   }
-  this.scale(window.Rooler.screenShot.canvas, this.canvas, scale, offset);
+  rooler.Magnifier.scale(window.Rooler.screenShot.canvas, this.canvas, scale, offset);
 
   this.positionText.textContent = (this.offset.x - this.base.x) + ', ' + (this.offset.y - this.base.y);
 
   var pixel = this.context.getImageData(this.width / 2 - scale, this.height / 2 - scale, 1, 1);
-  var color = '#' + pixel.data[0].toString(16).toUpperCase() + pixel.data[1].toString(16).toUpperCase() + pixel.data[2].toString(16).toUpperCase();
+  var color = this.colorToHex(pixel.data[0], pixel.data[1], pixel.data[2]);
+  //var color = '#' + pixel.data[0].toString(16).toUpperCase() + pixel.data[1].toString(16).toUpperCase() + pixel.data[2].toString(16).toUpperCase();
   this.pixelColorText.textContent = color;
   this.colorPreview.style.background = color;
 
   this.context.restore();
 };
 
-rooler.Magnifier.prototype.scale = function(srcCanvas, dstCanvas, scale, offset) {
+rooler.Magnifier.prototype.colorToHex = function(r, g, b) {
+  function toHex(v) {
+    var str = v.toString(16).toUpperCase();
+    if (str.length == 1) {
+      str = '0' + str;
+    }
+    return str;
+  }
+  return '#' + toHex(r) + toHex(g) + toHex(b);
+};
+
+rooler.Magnifier.scale = function(srcCanvas, dstCanvas, scale, offset) {
   var height = dstCanvas.height;
   var width = dstCanvas.width;
   var src = srcCanvas.getContext('2d');

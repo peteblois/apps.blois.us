@@ -8,7 +8,12 @@ rooler.Popup = function() {
   boundsMenuItem.addEventListener('click', this.openBoundsTool.bind(this), false);
 
   var magnifyMenuItem = document.getElementById('magnifierTool');
-  magnifyMenuItem.addEventListener('click', this.openMagnifierTool.bind(this), false);
+  if (magnifyMenuItem) {
+    magnifyMenuItem.addEventListener('click', this.openMagnifierTool.bind(this), false);
+  }
+
+  var loupeMenuItem = document.getElementById('loupeTool');
+  loupeMenuItem.addEventListener('click', this.openLoupeTool.bind(this), false);
 
   var feedbackMenuItem = document.getElementById('feedback');
   feedbackMenuItem.addEventListener('click', this.sendFeedback.bind(this), false);
@@ -26,6 +31,11 @@ rooler.Popup.prototype.openBoundsTool = function() {
 
 rooler.Popup.prototype.openMagnifierTool = function() {
   chrome.extension.getBackgroundPage().rooler.background.startMagnifierTool();
+  window.close();
+};
+
+rooler.Popup.prototype.openLoupeTool = function() {
+  chrome.extension.getBackgroundPage().rooler.background.startLoupeTool();
   window.close();
 };
 

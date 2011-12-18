@@ -68,9 +68,9 @@
         visibility: hidden;
         background-image: -webkit-linear-gradient(top,#888,#666);
         color: white;
-        -moz-box-shadow: 0px 0px 5px #888;
-        -webkit-box-shadow: 0px 0px 5px #888;
-        box-shadow: 0px 0px 5px #888;
+        -moz-box-shadow: 0px 2px 5px #888;
+        -webkit-box-shadow: 0px 2px 5px #888;
+        box-shadow: 0px 2px 5px #888;
       }
       #install:hover {
         background-image: -webkit-linear-gradient(top,#777,#555);
@@ -87,11 +87,13 @@
     </style>
 
     <link href='rooler/rooler.css' rel='stylesheet' type='text/css'/>
-
+    <script src='rooler/base.js' type='text/javascript'></script>
     <script src='html2canvas.js' type='text/javascript'></script>
+    <script src='rooler/tool.js' type='text/javascript'></script>
     <script src='rooler/screenshot.js' type='text/javascript'></script>
-    <script src='rooler/capture.js' type='text/javascript'></script>
     <script src='rooler/screencoordinates.js' type='text/javascript'></script>
+    <script src='rooler/capture.js' type='text/javascript'></script>
+    <script src='rooler/loupe.js' type='text/javascript'></script>
     <script src='rooler/magnifier.js' type='text/javascript'></script>
     <script src='rooler/bounds.js' type='text/javascript'></script>
     <script src='rooler/distance.js' type='text/javascript'></script>
@@ -122,6 +124,8 @@
           toolName = 'BoundsTool';
         } else if (name == 'magnify') {
           toolName = 'Magnifier';
+        } else if (name == 'loupe') {
+          toolName = 'Loupe';
         }
       }
 
@@ -172,7 +176,7 @@
         <div style='position: relative; top: -86px;'>
           <h1><span>Rooler</span></h1>
           <h2><span>Rool the world.</span></h2>
-            <a id='install' href='rooler.crx'>Install<span style='font-size:.5em; display:block'>Chrome Extension</span></a>
+            <a id='install' href='rooler.crx'><span>Install</span><span style='font-size:.5em; display:block'>Chrome Extension</span></a>
         </div>
         <div>
       </div>

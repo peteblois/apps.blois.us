@@ -1,10 +1,15 @@
 var rooler = rooler || {};
 
 rooler.DistanceTool = function() {
-  this.element = rooler.createElement('div', 'roolerRoot');
+  rooler.base(this);
+};
+rooler.inherits(rooler.DistanceTool, rooler.Tool);
+
+rooler.DistanceTool.prototype.initialize = function(root) {
+  rooler.base(this, 'initialize', root);
 
   this.crosshairs = rooler.createElement('div', 'roolerCrosshairs');
-  this.element.appendChild(this.crosshairs);
+  root.appendChild(this.crosshairs);
 
   this.vertical = rooler.createElement('div', 'roolerVertical');
   this.crosshairs.appendChild(this.vertical);
@@ -22,55 +27,33 @@ rooler.DistanceTool = function() {
 
   this.handleMouseMove = this.handleMouseMove.bind(this);
   this.handleMouseDown = this.handleMouseDown.bind(this);
-  this.handleWindowScroll = this.handleWindowScroll.bind(this);
   this.handleMouseWheel = this.handleMouseWheel.bind(this);
 
   document.body.addEventListener('mousemove', this.handleMouseMove, false);
   document.body.addEventListener('mousedown', this.handleMouseDown, false);
   document.body.addEventListener('touchmove', this.handleMouseMove, false);
   document.body.addEventListener('touchstart', this.handleMouseDown, false);
-  window.addEventListener('scroll', this.handleWindowScroll, false);
   window.addEventListener('mousewheel', this.handleMouseWheel, false);
 
   this.dimensions = rooler.createElement('div', 'roolerDimensions');
-  this.element.appendChild(this.dimensions);
-
-  document.body.appendChild(this.element);
-
-  this.overlay = rooler.createElement('div', 'roolerOverlay');
-  document.body.appendChild(this.overlay);
-}
-
-rooler.DistanceTool.prototype.canClose = true;
-rooler.DistanceTool.prototype.setCanClose = function(canClose) {
-  this.canClose = canClose;
+  root.appendChild(this.dimensions);
 };
 
 rooler.DistanceTool.prototype.close = function() {
+  rooler.base(this, 'close');
+
   document.body.removeEventListener('mousemove', this.handleMouseMove, false);
   document.body.removeEventListener('mousedown', this.handleMouseDown, false);
   document.body.removeEventListener('touchmove', this.handleMouseMove, false);
   document.body.removeEventListener('touchstart', this.handleMouseDown, false);
-  window.removeEventListener('scroll', this.handleWindowScroll, false);
   window.removeEventListener('mousewheel', this.handleMouseWheel, false);
-
-  document.body.removeChild(this.element);
-  document.body.removeChild(this.overlay);
-}
-
-rooler.DistanceTool.prototype.hide = function() {
-  this.element.className += ' roolerHidden';
-}
-
-rooler.DistanceTool.prototype.show = function() {
-  this.element.className = this.element.className.replace(' roolerHidden', '');
 }
 
 rooler.DistanceTool.prototype.handleMouseDown = function(e) {
   if (this.canClose) {
     this.close();
   }
-}
+};
 
 rooler.DistanceTool.prototype.handleMouseMove = function(e) {
   this.cursorPosition = {
@@ -81,7 +64,7 @@ rooler.DistanceTool.prototype.handleMouseMove = function(e) {
 
   this.update();
   return true;
-}
+};
 
 rooler.DistanceTool.prototype.update = function() {
   if (!window.Rooler.screenShot) {
@@ -129,12 +112,6 @@ rooler.DistanceTool.prototype.update = function() {
     this.dimensions.style.left = (this.cursorPosition.x - myOffset.left - (width + 10)) + 'px';
   } else {
     this.dimensions.style.left = (this.cursorPosition.x - myOffset.left + 10) + 'px';
-  }
-}
-
-rooler.DistanceTool.prototype.handleWindowScroll = function(e) {
-  if (window.Rooler.requestUpdateScreenshot) {
-    window.Rooler.requestUpdateScreenshot();
   }
 }
 
