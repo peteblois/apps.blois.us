@@ -78,11 +78,6 @@ class SaveScript(webapp.RequestHandler):
     scriptDict['title'] = script.title
     scriptDict['id'] = key.id()
 
-    #self.response.out.write(key.id())
-    #self.response.out.write(user)
-    #if not user:
-    #  self.response.out.write('no user')
-
     self.response.out.write(json.dumps(scriptDict))
 
 class GetScripts(webapp.RequestHandler):
@@ -111,8 +106,6 @@ class GetScript(webapp.RequestHandler):
     item['id'] = script.key().id()
 
     self.response.out.write(json.dumps(item))
-
-    #self.response.out.write(match.group(1));
 
 class ManageScripts(webapp.RequestHandler):
   def get(self):

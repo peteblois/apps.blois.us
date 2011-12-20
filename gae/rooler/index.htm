@@ -9,19 +9,20 @@
         height: 100%;
         font: .8em Arial, Helvetica
       }
-      .navigation {
-        border-left: 1px solid #D2D2D2;
-        border-bottom: 1px solid #D2D2D2;
+      .header {
         background: #F1F1F1;
-        font-size: 1.1em;
-        text-shadow: #FFF 0 1px;
         border-bottom: 1px solid #D2D2D2;
-        position: relative;
-
         -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
         -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
         box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
         z-index: 1000;
+        height: 39px;
+        position: relative;
+        text-shadow: #FFF 0 1px;
+      }
+      .navigation {
+        border-left: 1px solid #D2D2D2;
+        font-size: 1.1em;
       }
       .item {
         display: inline-block;
@@ -80,13 +81,6 @@
         top: -25px;
         right: 6px;
       }
-      sub {
-        white-space: nowrap;
-        position: absolute;
-        font-size: .7em;
-        left: 36px;
-        top: 27px;
-      }
     </style>
 
     <script type='text/javascript'>
@@ -119,13 +113,15 @@
     }
     </script>
   <body>
-    <div class='navigation' id='navigation'>
-      <a href='#distance' id='distance'><div class='item'>Distance</div></a>
-      <a href='#bounds' id='bounds'><div class='item'>Bounds</div></a>
-      <!-- <a href='#magnify'><div class='item'>Magnify</div></a> -->
-      <a href='#loupe' id='loupe'><div class='item'>Magnify</div></a>
+    <div class='header'>
+      <div class='navigation' id='navigation'>
+        <a href='#distance' id='distance'><div class='item'>Distance</div></a>
+        <a href='#bounds' id='bounds'><div class='item'>Bounds</div></a>
+        <!-- <a href='#magnify'><div class='item'>Magnify</div></a> -->
+        <a href='#loupe' id='loupe'><div class='item'>Magnify</div></a>
+      </div>
+      <h1>Rooler.</h1>
     </div>
-    <h1>Rooler.</h1>
 
     <div class='container'>
       <div class='host'>

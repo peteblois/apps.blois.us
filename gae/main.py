@@ -4,9 +4,11 @@ import datetime
 import time
 import simplejson as json
 import base64
+import baby.index
 import draw.index
 import feedback.index
 import rooler.index
+import tarball.index
 import town.index
 import war.index
 import voxel.index
@@ -19,7 +21,7 @@ from google.appengine.ext.webapp import template
 
 class Home(webapp.RequestHandler):
   def get(self):
-    self.redirect('http://blois.us');
+    self.redirect('http://blois.us/Projects.html');
 
 class ShowUser(webapp.RequestHandler):
   def get(self):
@@ -38,14 +40,19 @@ class ShowUser(webapp.RequestHandler):
       self.redirect(users.create_login_url("/user"))
 
 def main():
-  pages = [('/', Home)]
-  pages = [('/user', ShowUser)]
+  pages = [
+    ('/', Home),
+    ('/user', ShowUser),
+  ]
+  pages.extend(baby.index.pages)
   pages.extend(draw.index.pages)
   pages.extend(feedback.index.pages)
-  pages.extend(town.index.pages)
   pages.extend(rooler.index.pages)
-  pages.extend(war.index.pages)
+  pages.extend(tarball.index.pages)
+  pages.extend(town.index.pages)
   pages.extend(voxel.index.pages)
+  pages.extend(war.index.pages)
+
   application = webapp.WSGIApplication(pages, debug=True)
   run_wsgi_app(application)
 
